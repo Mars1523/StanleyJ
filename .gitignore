@@ -1,0 +1,16 @@
+# FRC Specific
+imgui.ini
+
+## Java build files
+/.gradle
+/build
+
+## IntelliJ Files
+/.idea/*
+
+# VSCode
+/.classpath
+/.project
+/.settings
+/bin
+/.vscode
