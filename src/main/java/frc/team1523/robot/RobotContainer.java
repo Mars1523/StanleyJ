@@ -53,8 +53,8 @@ public class RobotContainer {
         liftSubsystem.setDefaultCommand(
                 new ManualLiftControl(
                         liftSubsystem,
-                        () -> primaryGamepad.getTriggerAxis(GenericHID.Hand.kRight)
-                                - primaryGamepad.getTriggerAxis(GenericHID.Hand.kLeft)));
+                        () -> (primaryGamepad.getTriggerAxis(GenericHID.Hand.kRight)
+                                - primaryGamepad.getTriggerAxis(GenericHID.Hand.kLeft)) * 60));
 
         intakeSubsystem.setDefaultCommand(new RunCommand(
                 () -> intakeSubsystem.setSpeed(-altGamepad.getY(GenericHID.Hand.kRight)),
