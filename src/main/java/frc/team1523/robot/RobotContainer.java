@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.team1523.robot.commands.ManualLiftControl;
 import frc.team1523.robot.commands.SetElevatorSetpoint;
 import frc.team1523.robot.subsystems.DriveSubsystem;
+import frc.team1523.robot.subsystems.IntakeSubsystem;
 import frc.team1523.robot.subsystems.LiftSubsystem;
 
 public class RobotContainer {
@@ -32,6 +33,7 @@ public class RobotContainer {
             return 1;
         }
     });
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
     public RobotContainer() {
         configureButtonBindings();
@@ -53,13 +55,26 @@ public class RobotContainer {
                         liftSubsystem,
                         () -> primaryGamepad.getTriggerAxis(GenericHID.Hand.kRight)
                                 - primaryGamepad.getTriggerAxis(GenericHID.Hand.kLeft)));
+
+        intakeSubsystem.setDefaultCommand(new RunCommand(
+                () -> intakeSubsystem.setSpeed(-altGamepad.getY(GenericHID.Hand.kRight)),
+                intakeSubsystem));
     }
 
     private void configureButtonBindings() {
-        new JoystickButton(altGamepad, XboxController.Button.kA.value).whenPressed(new SetElevatorSetpoint(liftSubsystem, 0));
-        new JoystickButton(altGamepad, XboxController.Button.kX.value).whenPressed(new SetElevatorSetpoint(liftSubsystem, 600));
-        new JoystickButton(altGamepad, XboxController.Button.kY.value).whenPressed(new SetElevatorSetpoint(liftSubsystem, 1600));
-        new JoystickButton(altGamepad, XboxController.Button.kB.value).whenPressed(new SetElevatorSetpoint(liftSubsystem, 1800));
+        new JoystickButton(altGamepad, XboxController.Button.kA.value)
+                .whenPressed(new SetElevatorSetpoint(liftSubsystem, 0));
+        new JoystickButton(altGamepad, XboxController.Button.kX.value)
+                .whenPressed(new SetElevatorSetpoint(liftSubsystem, 600));
+        new JoystickButton(altGamepad, XboxController.Button.kY.value)
+                .whenPressed(new SetElevatorSetpoint(liftSubsystem, 1600));
+        new JoystickButton(altGamepad, XboxController.Button.kB.value)
+                .whenPressed(new SetElevatorSetpoint(liftSubsystem, 1800));
+
+        new JoystickButton(altGamepad, XboxController.Button.kBumperRight.value)
+                .whenPressed(new InstantCommand(intakeSubsystem::grab));
+        new JoystickButton(altGamepad, XboxController.Button.kBumperLeft.value)
+                .whenPressed(new InstantCommand(intakeSubsystem::release));
     }
 
     public Command getAutonomousCommand() {
