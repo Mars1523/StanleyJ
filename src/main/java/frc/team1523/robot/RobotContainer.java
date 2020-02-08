@@ -21,9 +21,17 @@ public class RobotContainer {
     private final XboxController primaryGamepad = new XboxController(0);
     private final XboxController altGamepad = new XboxController(1);
 
-    private final DriveSubsystem driveSubsystem = new DriveSubsystem();
     private final LiftSubsystem liftSubsystem = new LiftSubsystem();
-
+    private final DriveSubsystem driveSubsystem = new DriveSubsystem(() -> {
+        // Reduce the speed of the drive train if the lift is up
+        if (liftSubsystem.getSetpoint() > 700) {
+            return 0.8;
+        } else if (liftSubsystem.getSetpoint() > 1500) {
+            return 0.8 * 0.8;
+        } else {
+            return 1;
+        }
+    });
 
     public RobotContainer() {
         configureButtonBindings();

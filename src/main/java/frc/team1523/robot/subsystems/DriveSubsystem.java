@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import java.util.function.DoubleSupplier;
+
 import static frc.team1523.robot.Constants.DriveConstants.kEncoderDistancePerPulse;
 
 public class DriveSubsystem extends SubsystemBase {
@@ -17,13 +19,16 @@ public class DriveSubsystem extends SubsystemBase {
 
     private final DifferentialDrive driveTrain = new DifferentialDrive(leftMotor, rightMotor);
 
-    public DriveSubsystem() {
+    private final DoubleSupplier speedMultiplier;
+
+    public DriveSubsystem(DoubleSupplier speedMultiplier) {
+        this.speedMultiplier = speedMultiplier;
         leftEncoder.setDistancePerPulse(kEncoderDistancePerPulse);
         rightEncoder.setDistancePerPulse(kEncoderDistancePerPulse);
     }
 
     public void arcadeDrive(double fwd, double rot) {
-        driveTrain.arcadeDrive(fwd, rot);
+        driveTrain.arcadeDrive(fwd * speedMultiplier.getAsDouble(), rot);
     }
 
     public void resetEncoders() {
