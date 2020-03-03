@@ -44,6 +44,8 @@ public class RobotContainer {
         chooser.addOption("My Auto", kCustomAuto);
         Shuffleboard.getTab("Drive").add("Auto choicess", chooser);
 
+        limelightSubsystem.disableLeds();
+
         driveSubsystem.setDefaultCommand(
                 new RunCommand(() -> driveSubsystem.arcadeDrive(
                         primaryGamepad.getTriggerAxis(GenericHID.Hand.kLeft) +
@@ -87,5 +89,13 @@ public class RobotContainer {
             default:
                 return new InstantCommand();
         }
+    }
+
+    public void disabledInit() {
+        limelightSubsystem.disableLeds();
+    }
+
+    public void teleopInit() {
+        limelightSubsystem.enableLeds();
     }
 }

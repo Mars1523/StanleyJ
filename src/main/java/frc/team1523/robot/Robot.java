@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
         if (autonomousCommand != null) {
             autonomousCommand.cancel();
         }
+        robotContainer.teleopInit();
     }
 
     @Override
@@ -42,5 +43,10 @@ public class Robot extends TimedRobot {
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
+    }
+
+    @Override
+    public void disabledInit() {
+        robotContainer.disabledInit();
     }
 }
