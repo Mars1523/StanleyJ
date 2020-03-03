@@ -13,6 +13,7 @@ import frc.team1523.robot.commands.SetElevatorSetpoint;
 import frc.team1523.robot.subsystems.DriveSubsystem;
 import frc.team1523.robot.subsystems.IntakeSubsystem;
 import frc.team1523.robot.subsystems.LiftSubsystem;
+import frc.team1523.robot.subsystems.LimelightSubsystem;
 
 public class RobotContainer {
     private static final String kDefaultAuto = "Default";
@@ -34,6 +35,7 @@ public class RobotContainer {
         }
     });
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
 
     public RobotContainer() {
         configureButtonBindings();
