@@ -45,11 +45,10 @@ public class RobotContainer {
         Shuffleboard.getTab("Drive").add("Auto choicess", chooser);
 
         driveSubsystem.setDefaultCommand(
-                new RunCommand(() ->
-                        driveSubsystem.arcadeDrive(
-                                primaryGamepad.getTriggerAxis(GenericHID.Hand.kLeft) +
-                                        -primaryGamepad.getTriggerAxis(GenericHID.Hand.kLeft),
-                                -primaryGamepad.getX(GenericHID.Hand.kLeft) * .75),
+                new RunCommand(() -> driveSubsystem.arcadeDrive(
+                        primaryGamepad.getTriggerAxis(GenericHID.Hand.kLeft) +
+                                -primaryGamepad.getTriggerAxis(GenericHID.Hand.kRight),
+                        primaryGamepad.getX(GenericHID.Hand.kLeft) * .75),
                         driveSubsystem));
 
         liftSubsystem.setDefaultCommand(
